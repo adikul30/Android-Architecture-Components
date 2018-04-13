@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.support.v7.widget.Toolbar;
+
 
 import kulkarni.aditya.architecture.R;
 import kulkarni.aditya.architecture.WordViewModel;
@@ -27,6 +29,7 @@ public class NewWord extends AppCompatActivity {
     public static final String EXTRA_GREEK = "greek";
 
     private WordViewModel mWordViewModel;
+    Toolbar toolbar;
 
     private EditText wordET, meaningET, synonymET, antonymET, greekET, latinET;
     private String word = "",meaning = "",synonym = "",antonym = "",greek = "",latin = "";
@@ -36,6 +39,8 @@ public class NewWord extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_word);
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         wordET = findViewById(R.id.word_et);
         meaningET = findViewById(R.id.meaning_et);
         synonymET = findViewById(R.id.synonym_et);
@@ -45,10 +50,8 @@ public class NewWord extends AppCompatActivity {
 
         mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
 
-
         if(getIntent() != null){
             wordFromIntent = getIntent().getStringExtra("WORD_EDIT");
-            Log.d(TAG,wordFromIntent);
         }
 
         if(wordFromIntent != null && !wordFromIntent.isEmpty()){

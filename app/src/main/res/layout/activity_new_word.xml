@@ -1,86 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="kulkarni.aditya.architecture.activity.NewWord">
+    tools:context="kulkarni.aditya.architecture.activity.WordDetail">
 
-    <EditText
-        android:id="@+id/word_et"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:hint="Word"
-        android:inputType="textAutoComplete"
-        android:padding="6dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        android:textSize="18sp" />
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <EditText
-        android:id="@+id/meaning_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:hint="Meaning"
-        android:inputType="textAutoComplete"
-        android:padding="6dp"
-        android:layout_marginBottom="16dp"
-        android:textSize="18sp" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:title="Add new word"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <EditText
-        android:id="@+id/synonym_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:hint="Synonym"
-        android:inputType="textAutoComplete"
-        android:padding="6dp"
-        android:layout_marginBottom="16dp"
-        android:textSize="18sp" />
+    </android.support.design.widget.AppBarLayout>
 
-    <EditText
-        android:id="@+id/antonym_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:hint="Antonym"
-        android:inputType="textAutoComplete"
-        android:padding="6dp"
-        android:layout_marginBottom="16dp"
-        android:textSize="18sp" />
+    <include layout="@layout/content_new_word" />
 
-    <EditText
-        android:id="@+id/greek_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:hint="Greek root"
-        android:inputType="textAutoComplete"
-        android:padding="6dp"
-        android:layout_marginBottom="16dp"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/latin_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:hint="Latin root"
-        android:inputType="textAutoComplete"
-        android:padding="6dp"
-        android:layout_marginBottom="16dp"
-        android:textSize="18sp" />
-
-    <Button
-        android:textColor="@android:color/white"
-        android:layout_gravity="center"
-        android:id="@+id/button_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="Save" />
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

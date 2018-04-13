@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import kulkarni.aditya.architecture.R;
 import kulkarni.aditya.architecture.activity.WordDetail;
@@ -23,7 +26,7 @@ import kulkarni.aditya.architecture.model.Word;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
 
-    private List<Word> mWords;
+    private List<Word> mWords,mWordsCopy;
     private Context mContext;
 
     public WordListAdapter(Context context) {
@@ -45,6 +48,8 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
     public void setToDos(List<Word> words){
         mWords = words;
+        mWordsCopy = new ArrayList<>();
+        mWordsCopy.addAll(mWords);
         notifyDataSetChanged();
     }
 
@@ -83,5 +88,30 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
                 }
             });
         }
+    }
+
+    public void filter(String query) {
+        query = query.toLowerCase(Locale.getDefault());
+        mWords.clear();
+        if (query.length() == 0) {
+            mWords.addAll(mWordsCopy);
+        } else {
+
+            for (int i = 0; i < mWordsCopy.size(); i++) {
+
+                String word = mWordsCopy.get(i).getWord();
+                String meaning = mWordsCopy.get(i).getMeaning();
+
+                if (word != null && meaning != null) {
+                    if (word.toLowerCase().contains(query) || meaning.toLowerCase().contains(query)) {
+                        mWords.add(mWordsCopy.get(i));
+                    }
+                }
+            }
+        }
+
+        notifyDataSetChanged();
+
+
     }
 }

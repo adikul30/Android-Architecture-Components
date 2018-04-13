@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_height="match_parent"
+    tools:context="kulkarni.aditya.architecture.activity.NewWord">
+
+    <EditText
+        android:id="@+id/word_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:hint="Word"
+        android:inputType="textAutoComplete"
+        android:padding="6dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/meaning_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:hint="Meaning"
+        android:inputType="textAutoComplete"
+        android:padding="6dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/synonym_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:hint="Synonym"
+        android:inputType="textAutoComplete"
+        android:padding="6dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/antonym_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:hint="Antonym"
+        android:inputType="textAutoComplete"
+        android:padding="6dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/greek_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:hint="Greek root"
+        android:inputType="textAutoComplete"
+        android:padding="6dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/latin_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:hint="Latin root"
+        android:inputType="textAutoComplete"
+        android:padding="6dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="18sp" />
+
+    <Button
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"
+        android:id="@+id/button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:background="@color/colorPrimary"
+        android:text="Save" />
+
+</LinearLayout>

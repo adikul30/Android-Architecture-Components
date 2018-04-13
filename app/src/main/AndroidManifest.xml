@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.NewWord" />
+        <activity android:name=".activity.NewWord"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activity.WordDetail"
             android:label="@string/title_activity_word_detail"

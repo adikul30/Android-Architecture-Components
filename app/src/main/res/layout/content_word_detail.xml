@@ -11,15 +11,15 @@
     tools:showIn="@layout/activity_word_detail">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_weight="0.3"
             android:id="@+id/word_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -28,10 +28,10 @@
             android:textStyle="bold|italic" />
 
         <TextView
-            android:layout_weight="0.7"
             android:id="@+id/word"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.7"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -41,15 +41,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_weight="0.3"
             android:id="@+id/meaning_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -58,10 +59,10 @@
             android:textStyle="bold|italic" />
 
         <TextView
-            android:layout_weight="0.7"
             android:id="@+id/meaning"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.7"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -71,15 +72,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/synonym_text"
-            android:layout_weight="0.3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -88,10 +90,10 @@
             android:textStyle="bold|italic" />
 
         <TextView
-            android:layout_weight="0.7"
             android:id="@+id/synonym"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.7"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -101,15 +103,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_weight="0.3"
             android:id="@+id/antonym_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -118,10 +121,10 @@
             android:textStyle="bold|italic" />
 
         <TextView
-            android:layout_weight="0.7"
             android:id="@+id/antonym"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.7"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -131,15 +134,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_weight="0.3"
             android:id="@+id/greek_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -148,10 +152,10 @@
             android:textStyle="bold|italic" />
 
         <TextView
-            android:layout_weight="0.7"
             android:id="@+id/greek"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.7"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -161,15 +165,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_weight="0.3"
             android:id="@+id/latin_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
@@ -178,10 +183,10 @@
             android:textStyle="bold|italic" />
 
         <TextView
-            android:layout_weight="0.7"
             android:id="@+id/latin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.7"
             android:paddingBottom="4dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
