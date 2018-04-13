@@ -2,6 +2,7 @@ package kulkarni.aditya.architecture.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import kulkarni.aditya.architecture.R;
 import kulkarni.aditya.architecture.WordViewModel;
@@ -19,6 +21,8 @@ import kulkarni.aditya.architecture.model.Word;
 public class WordDetail extends AppCompatActivity {
 
     public final String TAG = this.getClass().getSimpleName();
+    public static final int EDIT_WORD_ACTIVITY_REQUEST_CODE = 1;
+
     private WordViewModel mWordViewModel;
     Toolbar toolbar;
     String wordFromIntent;
@@ -37,12 +41,53 @@ public class WordDetail extends AppCompatActivity {
         antonym = findViewById(R.id.antonym);
         greek = findViewById(R.id.greek);
         latin = findViewById(R.id.latin);
+
         mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
         setSupportActionBar(toolbar);
 
         if(getIntent() != null){
             wordFromIntent = getIntent().getStringExtra("EXTRA_WORD");
         }
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent editIntent = new Intent(WordDetail.this,NewWord.class);
+                editIntent.putExtra("WORD_EDIT",mWord);
+                startActivityForResult(editIntent,EDIT_WORD_ACTIVITY_REQUEST_CODE);
+            }
+        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == EDIT_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Word word = new Word(
+                    data.getStringExtra(NewWord.EXTRA_WORD),
+                    data.getStringExtra(NewWord.EXTRA_MEANING),
+                    data.getStringExtra(NewWord.EXTRA_SYNONYM),
+                    data.getStringExtra(NewWord.EXTRA_ANTONYM),
+                    data.getStringExtra(NewWord.EXTRA_LATIN),
+                    data.getStringExtra(NewWord.EXTRA_GREEK));
+            mWordViewModel.insert(word);
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Updated",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Not updated",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         if(!wordFromIntent.isEmpty() && wordFromIntent != null){
             mWordViewModel.getWord(wordFromIntent).observe(this, new Observer<Word>() {
@@ -64,16 +109,5 @@ public class WordDetail extends AppCompatActivity {
                 }
             });
         }
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
 }

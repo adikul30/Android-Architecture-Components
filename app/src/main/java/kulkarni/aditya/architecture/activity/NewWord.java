@@ -1,5 +1,7 @@
 package kulkarni.aditya.architecture.activity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import kulkarni.aditya.architecture.R;
+import kulkarni.aditya.architecture.WordViewModel;
+import kulkarni.aditya.architecture.model.Word;
 
 public class NewWord extends AppCompatActivity {
+
+    private String TAG = this.getClass().getSimpleName();
 
     public static final String EXTRA_WORD = "word";
     public static final String EXTRA_MEANING = "meaning";
@@ -20,9 +26,11 @@ public class NewWord extends AppCompatActivity {
     public static final String EXTRA_LATIN = "latin";
     public static final String EXTRA_GREEK = "greek";
 
+    private WordViewModel mWordViewModel;
+
     private EditText wordET, meaningET, synonymET, antonymET, greekET, latinET;
     private String word = "",meaning = "",synonym = "",antonym = "",greek = "",latin = "";
-
+    private String wordFromIntent = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,28 @@ public class NewWord extends AppCompatActivity {
         antonymET = findViewById(R.id.antonym_et);
         greekET = findViewById(R.id.greek_et);
         latinET = findViewById(R.id.latin_et);
+
+        mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
+
+
+        if(getIntent() != null){
+            wordFromIntent = getIntent().getStringExtra("WORD_EDIT");
+            Log.d(TAG,wordFromIntent);
+        }
+
+        if(wordFromIntent != null && !wordFromIntent.isEmpty()){
+            mWordViewModel.getWord(wordFromIntent).observe(this, new Observer<Word>() {
+                @Override
+                public void onChanged(Word word) {
+                    wordET.setText(word.getWord());
+                    meaningET.setText(word.getMeaning());
+                    synonymET.setText(word.getSynonym());
+                    antonymET.setText(word.getAntonym());
+                    greekET.setText(word.getGreek());
+                    latinET.setText(word.getLatin());
+                }
+            });
+        }
 
         final Button button = findViewById(R.id.button_save);
         button.setOnClickListener(new View.OnClickListener() {
