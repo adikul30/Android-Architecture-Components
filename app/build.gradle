@@ -1,4 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 
 android {
     compileSdkVersion 27
@@ -11,6 +26,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -50,5 +70,8 @@ dependencies {
     compile "com.android.support:support-core-utils:27.1.1"
 
     implementation "android.arch.persistence.room:rxjava2:1.0.0"
+    compile('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+        transitive = true;
+    }
 
 }

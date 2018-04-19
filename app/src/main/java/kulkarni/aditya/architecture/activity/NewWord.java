@@ -27,12 +27,13 @@ public class NewWord extends AppCompatActivity {
     public static final String EXTRA_ANTONYM = "antonym";
     public static final String EXTRA_LATIN = "latin";
     public static final String EXTRA_GREEK = "greek";
+    public static final String EXTRA_EXAMPLE = "example";
 
     private WordViewModel mWordViewModel;
     Toolbar toolbar;
 
-    private EditText wordET, meaningET, synonymET, antonymET, greekET, latinET;
-    private String word = "",meaning = "",synonym = "",antonym = "",greek = "",latin = "";
+    private EditText wordET, meaningET, synonymET, antonymET, greekET, latinET, exampleET;
+    private String word = "",meaning = "",synonym = "",antonym = "",greek = "",latin = "", example = "";
     private String wordFromIntent = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class NewWord extends AppCompatActivity {
         antonymET = findViewById(R.id.antonym_et);
         greekET = findViewById(R.id.greek_et);
         latinET = findViewById(R.id.latin_et);
+        exampleET = findViewById(R.id.example_et);
 
         mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
 
@@ -64,6 +66,7 @@ public class NewWord extends AppCompatActivity {
                     antonymET.setText(word.getAntonym());
                     greekET.setText(word.getGreek());
                     latinET.setText(word.getLatin());
+                    exampleET.setText(word.getExample());
                 }
             });
         }
@@ -83,11 +86,13 @@ public class NewWord extends AppCompatActivity {
                     antonym = antonymET.getText().toString();
                     latin = latinET.getText().toString();
                     greek = greekET.getText().toString();
+                    example = exampleET.getText().toString();
 
                     if(synonym.trim().isEmpty() || synonym.equals(""))synonym = "-";
                     if(antonym.trim().isEmpty() || antonym.equals(""))antonym = "-";
                     if(latin.trim().isEmpty() || latin.equals(""))latin = "-";
                     if(greek.trim().isEmpty() || greek.equals(""))greek = "-";
+                    if(example.trim().isEmpty() || example.equals(""))example = "-";
 
                     replyIntent.putExtra(EXTRA_WORD, word);
                     replyIntent.putExtra(EXTRA_MEANING, meaning);
@@ -95,6 +100,7 @@ public class NewWord extends AppCompatActivity {
                     replyIntent.putExtra(EXTRA_ANTONYM, antonym);
                     replyIntent.putExtra(EXTRA_LATIN, latin);
                     replyIntent.putExtra(EXTRA_GREEK, greek);
+                    replyIntent.putExtra(EXTRA_EXAMPLE, example);
 
                     setResult(RESULT_OK, replyIntent);
                 }

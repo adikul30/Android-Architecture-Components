@@ -26,8 +26,8 @@ public class WordDetail extends AppCompatActivity {
     private WordViewModel mWordViewModel;
     Toolbar toolbar;
     String wordFromIntent;
-    private String mWord = "-",mMeaning = "-",mSynonym = "-",mAntonym = "-",mGreek = "-",mLatin = "-";
-    private TextView wordTextView,meaning,synonym,antonym,greek,latin;
+    private String mWord = "-",mMeaning = "-",mSynonym = "-",mAntonym = "-",mGreek = "-",mLatin = "-",mExample = "-";
+    private TextView wordTextView,meaning,synonym,antonym,greek,latin,example;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class WordDetail extends AppCompatActivity {
         antonym = findViewById(R.id.antonym);
         greek = findViewById(R.id.greek);
         latin = findViewById(R.id.latin);
+        example = findViewById(R.id.example);
 
         mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
         setSupportActionBar(toolbar);
@@ -71,7 +72,8 @@ public class WordDetail extends AppCompatActivity {
                     data.getStringExtra(NewWord.EXTRA_SYNONYM),
                     data.getStringExtra(NewWord.EXTRA_ANTONYM),
                     data.getStringExtra(NewWord.EXTRA_LATIN),
-                    data.getStringExtra(NewWord.EXTRA_GREEK));
+                    data.getStringExtra(NewWord.EXTRA_GREEK),
+                    data.getStringExtra(NewWord.EXTRA_EXAMPLE));
             mWordViewModel.insert(word);
             Toast.makeText(
                     getApplicationContext(),
@@ -99,6 +101,8 @@ public class WordDetail extends AppCompatActivity {
                     mAntonym = word.getAntonym();
                     mGreek = word.getGreek();
                     mLatin = word.getLatin();
+                    mExample = word.getExample();
+
                     toolbar.setTitle(mWord);
                     wordTextView.setText(mWord);
                     meaning.setText(mMeaning);
@@ -106,6 +110,7 @@ public class WordDetail extends AppCompatActivity {
                     antonym.setText(mAntonym);
                     greek.setText(mGreek);
                     latin.setText(mLatin);
+                    example.setText(mExample);
                 }
             });
         }

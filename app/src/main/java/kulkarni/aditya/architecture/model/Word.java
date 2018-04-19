@@ -35,13 +35,17 @@ public class Word {
     @ColumnInfo(name = "latin")
     private String latin;
 
-    public Word(@NonNull String word, @NonNull String meaning, String synonym, String antonym, String greek, String latin) {
+    @ColumnInfo(name = "example")
+    private String example;
+
+    public Word(@NonNull String word, @NonNull String meaning, String synonym, String antonym, String greek, String latin, String example) {
         this.word = word;
         this.meaning = meaning;
         this.synonym = synonym;
         this.antonym = antonym;
         this.greek = greek;
         this.latin = latin;
+        this.example = example;
     }
 
     @NonNull
@@ -92,6 +96,14 @@ public class Word {
 
     public void setLatin(String latin) {
         this.latin = latin;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
     }
 
     public static Comparator<Word> comparator = new Comparator<Word>() {

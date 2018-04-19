@@ -30,6 +30,6 @@ public interface WordDao {
     @Update
     void update(Word word);
 
-    @Query("DELETE FROM word_list")
-    void deleteAll();
+    @Query("DELETE FROM word_list WHERE word = :word")
+    void deleteWord(String word);
 }

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:hint="Word"
-        android:inputType="textAutoComplete"
+        android:inputType="textAutoComplete|text"
         android:padding="6dp"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:hint="Meaning"
-        android:inputType="textAutoComplete"
+        android:inputType="textAutoComplete|text"
         android:padding="6dp"
         android:layout_marginBottom="16dp"
         android:textSize="18sp" />
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:hint="Synonym"
-        android:inputType="textAutoComplete"
+        android:inputType="textAutoComplete|text"
         android:padding="6dp"
         android:layout_marginBottom="16dp"
         android:textSize="18sp" />
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:hint="Antonym"
-        android:inputType="textAutoComplete"
+        android:inputType="textAutoComplete|text"
         android:padding="6dp"
         android:layout_marginBottom="16dp"
         android:textSize="18sp" />
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:hint="Greek root"
-        android:inputType="textAutoComplete"
+        android:inputType="textAutoComplete|text"
         android:padding="6dp"
         android:layout_marginBottom="16dp"
         android:textSize="18sp" />
@@ -70,7 +70,18 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:hint="Latin root"
-        android:inputType="textAutoComplete"
+        android:inputType="textAutoComplete|text"
+        android:padding="6dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/example_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:hint="Example"
+        android:inputType="textAutoComplete|text"
         android:padding="6dp"
         android:layout_marginBottom="16dp"
         android:textSize="18sp" />

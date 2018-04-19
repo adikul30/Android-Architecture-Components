@@ -3,6 +3,7 @@ package kulkarni.aditya.architecture.activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,13 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,23 +34,27 @@ import kulkarni.aditya.architecture.model.Word;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final String TAG = MainActivity.this.getClass().getSimpleName();
+
     private WordViewModel mWordViewModel;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     MaterialSearchView searchView;
     WordListAdapter adapter;
+    TextView defaultTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.home_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
-
         RecyclerView recyclerView = findViewById(R.id.word_recycler_view);
         searchView = findViewById(R.id.search_view);
+        defaultTextView = findViewById(R.id.default_text);
 
         adapter = new WordListAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -58,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 // Update the cached copy of the words in the adapter.
                 Collections.sort(words,Word.comparator);
                 adapter.setToDos(words);
+                if(words.size() == 0) defaultTextView.setVisibility(View.VISIBLE);
+                else defaultTextView.setVisibility(View.GONE);
             }
         });
 
@@ -91,6 +103,52 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                String wordToDelete = adapter.getWordToDelete(position);
+                mWordViewModel.delete(wordToDelete);
+                adapter.removeItem(position);
+            }
+
+            @Override
+            public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+                if (viewHolder != null) {
+                    final View foregroundView = ((WordListAdapter.ViewHolder) viewHolder).wordLayout;
+                    getDefaultUIUtil().onSelected(foregroundView);
+                }
+            }
+
+            @Override
+            public void onChildDrawOver(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                final View foregroundView = ((WordListAdapter.ViewHolder) viewHolder).wordLayout;
+                getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
+                        actionState, isCurrentlyActive);
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                final View foregroundView = ((WordListAdapter.ViewHolder) viewHolder).wordLayout;
+
+                getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
+                        actionState, isCurrentlyActive);
+            }
+
+            @Override
+            public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                final View foregroundView = ((WordListAdapter.ViewHolder) viewHolder).wordLayout;
+                getDefaultUIUtil().clearView(foregroundView);
+            }
+        };
+
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -103,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
                     data.getStringExtra(NewWord.EXTRA_SYNONYM),
                     data.getStringExtra(NewWord.EXTRA_ANTONYM),
                     data.getStringExtra(NewWord.EXTRA_LATIN),
-                    data.getStringExtra(NewWord.EXTRA_GREEK));
+                    data.getStringExtra(NewWord.EXTRA_GREEK),
+                    data.getStringExtra(NewWord.EXTRA_EXAMPLE));
             mWordViewModel.insert(word);
         } else {
             Toast.makeText(

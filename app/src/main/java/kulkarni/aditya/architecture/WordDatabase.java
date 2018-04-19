@@ -11,7 +11,7 @@ import kulkarni.aditya.architecture.model.Word;
  * Created by maverick on 3/21/18.
  */
 
-@Database(entities = {Word.class}, version = 1)
+@Database(entities = {Word.class}, version = 2)
 public abstract class WordDatabase extends RoomDatabase {
 
     public abstract WordDao wordDao();

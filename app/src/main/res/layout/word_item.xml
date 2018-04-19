@@ -1,37 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/word_layout"
-    android:background="?android:attr/selectableItemBackground"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/word"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:paddingEnd="4dp"
-        android:paddingStart="4dp"
-        android:text="Word"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/meaning"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:paddingEnd="4dp"
-        android:paddingStart="4dp"
-        android:text="Meaning"
-        android:textSize="20sp" />
-
-    <View
+    <RelativeLayout
+        android:id="@+id/background_view"
+        android:background="@color/colorPrimary"
+        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="4dp"
-        android:background="#9e9e9e" />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <ImageView
+            android:paddingEnd="8dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/word_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:text="Word"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_below="@id/word"
+            android:id="@+id/meaning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:text="Meaning"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_below="@id/meaning"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="4dp"
+            android:background="#9e9e9e" />
+
+    </RelativeLayout>
+
+
+</FrameLayout>

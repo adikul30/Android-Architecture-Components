@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,14 +61,15 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         else return 0;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView word, meaning;
-        private final LinearLayout wordLayout;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public final TextView word, meaning;
+        public final RelativeLayout wordLayout,backgroundView;
         ViewHolder(View itemView) {
             super(itemView);
             word = itemView.findViewById(R.id.word);
             meaning = itemView.findViewById(R.id.meaning);
             wordLayout = itemView.findViewById(R.id.word_layout);
+            backgroundView = itemView.findViewById(R.id.background_view);
 
             wordLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -112,6 +114,14 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
         notifyDataSetChanged();
 
+    }
 
+    public void removeItem(int position){
+        mWords.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public String getWordToDelete(int position){
+        return mWords.get(position).getWord();
     }
 }
