@@ -3,9 +3,8 @@ package kulkarni.aditya.architecture;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.paging.PagedList;
 import android.support.annotation.NonNull;
-
-import java.util.List;
 
 import kulkarni.aditya.architecture.model.Word;
 
@@ -16,7 +15,7 @@ import kulkarni.aditya.architecture.model.Word;
 public class WordViewModel extends AndroidViewModel {
 
     private WordRepository mRepository;
-    private LiveData<List<Word>> mAllWords;
+    private LiveData<PagedList<Word>> mAllWords;
     private LiveData<Word> mWordDetail;
 
     public WordViewModel(@NonNull Application application) {
@@ -25,7 +24,7 @@ public class WordViewModel extends AndroidViewModel {
         this.mAllWords = mRepository.getAllWords();
     }
 
-    public LiveData<List<Word>> getAllWords() { return mAllWords; }
+    public LiveData<PagedList<Word>> getAllWords() { return mAllWords; }
 
     public LiveData<Word> getWord(String word) {
         this.mWordDetail = mRepository.getmWordDetail(word);

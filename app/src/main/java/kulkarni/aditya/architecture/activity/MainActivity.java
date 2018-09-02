@@ -1,7 +1,9 @@
 package kulkarni.aditya.architecture.activity;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private WordViewModel mWordViewModel;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    private LiveData<PagedList<Word>> mAllWords;
     MaterialSearchView searchView;
     WordListAdapter adapter;
     TextView defaultTextView;
@@ -45,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.home_toolbar);
@@ -57,21 +59,34 @@ public class MainActivity extends AppCompatActivity {
         defaultTextView = findViewById(R.id.default_text);
 
         adapter = new WordListAdapter(this);
-        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
         mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
-
-        mWordViewModel.getAllWords().observe(this, new Observer<List<Word>>() {
+        mWordViewModel.getAllWords().observe(this, new Observer<PagedList<Word>>() {
             @Override
-            public void onChanged(@Nullable final List<Word> words) {
-                // Update the cached copy of the words in the adapter.
-                Collections.sort(words,Word.comparator);
-                adapter.setToDos(words);
-                if(words.size() == 0) defaultTextView.setVisibility(View.VISIBLE);
-                else defaultTextView.setVisibility(View.GONE);
+            public void onChanged(@Nullable PagedList<Word> words) {
+                for (Word item : words)
+                    Log.d(TAG,item.getWord());
+                adapter.submitList(words);
+//                adapter.setToDos(words);
+                Log.d(TAG,"done");
             }
         });
+
+
+//        mWordViewModel.getAllWords().observe(this, new Observer<PagedList<Word>>() {
+//            @Override
+//            public void onChanged(@Nullable final PagedList<Word> words) {
+//                // Update the cached copy of the words in the adapter.
+////                Collections.sort(words,Word.comparator);
+//                adapter.setToDos(words);
+//                if(words.size() == 0) defaultTextView.setVisibility(View.VISIBLE);
+//                else defaultTextView.setVisibility(View.GONE);
+//            }
+//        });
+
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             searchView.closeSearch();
         }
 
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+/*        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if(adapter!=null) {
@@ -102,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     adapter.filter(newText);
                 return false;
             }
-        });
+        });*/
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
             @Override

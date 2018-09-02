@@ -14,8 +14,11 @@ import java.util.Comparator;
 @Entity(tableName = "word_list")
 public class Word {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
+    @ColumnInfo(name = "id")
+    private int id;
+
     @ColumnInfo(name = "word")
     private String word;
 
@@ -46,6 +49,15 @@ public class Word {
         this.greek = greek;
         this.latin = latin;
         this.example = example;
+    }
+
+    @NonNull
+    public int getId() {
+        return id;
+    }
+
+    public void setId(@NonNull int id) {
+        this.id = id;
     }
 
     @NonNull

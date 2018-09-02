@@ -2,9 +2,10 @@ package kulkarni.aditya.architecture;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.paging.DataSource;
+import android.arch.paging.LivePagedListBuilder;
+import android.arch.paging.PagedList;
 import android.os.AsyncTask;
-
-import java.util.List;
 
 import kulkarni.aditya.architecture.model.Word;
 
@@ -15,16 +16,18 @@ import kulkarni.aditya.architecture.model.Word;
 public class WordRepository {
 
     private WordDao mWordDao;
-    private LiveData<List<Word>> mAllWords;
+    private LiveData<PagedList<Word>> mAllWords;
     private LiveData<Word> mWordDetail;
+    private DataSource.Factory<Integer,Word> wordFactory;
 
     WordRepository(Application application) {
         WordDatabase db = WordDatabase.getDatabase(application);
         mWordDao = db.wordDao();
-        mAllWords = mWordDao.getWords();
+        wordFactory = mWordDao.getWords();
+        mAllWords = new LivePagedListBuilder<>(wordFactory,10).build();
     }
 
-    LiveData<List<Word>> getAllWords() {
+    LiveData<PagedList<Word>> getAllWords() {
         return mAllWords;
     }
 
